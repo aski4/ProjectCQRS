@@ -98,7 +98,7 @@ StyleCopReport.xml
 *.svclog
 *.scc
 
-ClientApp/dist/
+**/dist/
 
 # Chutzpah Test files
 _Chutzpah*
