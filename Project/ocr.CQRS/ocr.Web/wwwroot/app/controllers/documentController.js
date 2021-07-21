@@ -20,12 +20,12 @@
         TabService.closeTab(vm.tab.id, finaltext, () => getCurrentTabDetails(tab => $state.go("tabClosed", { tab: tab })));
     }
 
-      function postDocument() {
-
-          console.log($scope);
-          TabService.postDocument(vm.tab.id, $scope.myFile, () => refreshTabDetails());
-      }
     
+      function postDocument() {
+          var f = document.getElementById('file').files[0];
+              TabService.postDocument(vm.tab.id, f, () => refreshTabDetails());
+      }
+
     function refreshTabDetails() {
       getCurrentTabDetails(tab => vm.tab = tab);
     }
