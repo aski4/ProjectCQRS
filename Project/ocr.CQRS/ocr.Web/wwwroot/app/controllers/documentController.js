@@ -16,23 +16,30 @@
     });
 
 
-    function closeTab(finaltext) {
-        TabService.closeTab(vm.tab.id, finaltext, () => getCurrentTabDetails(tab => $state.go("tabClosed", { tab: tab })));
-    }
+      function closeTab(finaltext) {
+          TabService.closeTab(vm.tab.id, finaltext, () => getCurrentTabDetails(tab => $state.go("tabClosed", { tab: tab })));
+      }
 
     
       function postDocument() {
           var f = document.getElementById('file').files[0];
-              TabService.postDocument(vm.tab.id, f, () => refreshTabDetails());
+          TabService.postDocument(vm.tab.id, f, () => processDocument());
       }
 
-    function refreshTabDetails() {
-      getCurrentTabDetails(tab => vm.tab = tab);
-    }
+      function processDocument() {
+          TabService.processDocument(vm.tab.id, () => refreshTabDetails());
+      }
 
-    function getCurrentTabDetails(success) {
-      return TabService.getTabDetails(vm.tab.id, success);
-    }
+      function refreshTabDetails() {
+          getCurrentTabDetails(tab => vm.tab = tab);
+      }
+
+    
+      function getCurrentTabDetails(success) {
+    
+          return TabService.getTabDetails(vm.tab.id, () => success);
+
+      }
 
   }]);
 })(app);

@@ -61,7 +61,7 @@ namespace ocr.Domain
             new TabOpened
             {
                 Id = Id,
-                InitiatorName = InitiatorName
+                InitiatorName = initiatorName
             };
 
         public TabClosed CloseTab(string finalText) =>

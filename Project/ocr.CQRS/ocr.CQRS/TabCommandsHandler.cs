@@ -45,7 +45,7 @@ namespace ocr.CQRS
             GetTabIfNotClosed(command.TabId, cancellationToken)
             .FilterAsync(async tab => string.IsNullOrEmpty(command.FinalText), ValidationErrors.Tab.EmptyFinalText)
             .MapAsync(tab =>
-            PublishEvents(tab.Id, tab.CloseTab(tab.Document.Text))));
+            PublishEvents(tab.Id, tab.CloseTab(command.FinalText))));
 
         public Task<Option<Unit, Error>> Handle(PostDocument request, CancellationToken cancellationToken) =>
             ValidateCommandIsNotEmpty(request).FlatMapAsync(command =>
