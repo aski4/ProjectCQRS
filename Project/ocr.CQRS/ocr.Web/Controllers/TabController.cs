@@ -20,18 +20,28 @@ namespace ocr.Web.Controllers
             _mediator = mediator;
         }
 
+        [HttpGet("{id}")]
+        public async Task<IActionResult> Get(Guid id) =>
+                    (await _mediator.Send(new GetTabView { Id = id }))
+                        .Match(Ok, Error);
+
         [HttpPost("open/{id}")]
         public async Task<IActionResult> OpenTab(Guid id, [FromBody] string clientName) =>
                     (await _mediator.Send(new OpenTab { TabId = id, InitiatorName = clientName }))
                         .Match(Ok, Error);
 
+        [HttpPost("close/{id}")]
+        public async Task<IActionResult> CloseTab(Guid id, [FromBody] string finalText) =>
+                    (await _mediator.Send(new CloseTab { TabId = id, FinalText = finalText }))
+                        .Match(Ok, Error);
+
         [HttpGet("documents")]
-        public async Task<IActionResult> GetInStockBeverages() =>
+        public async Task<IActionResult> GetSavedDocumetns() =>
                     (await _mediator.Send(new GetSavedDocuments()))
                         .Match(Ok, Error);
 
-        [HttpPost("document/save")]
-        public async Task<IActionResult> SaveDocument([FromBody] SaveDocument document) =>
+        [HttpPost("document/save/{id}")]
+        public async Task<IActionResult> SaveDocument(Guid id, [FromBody] SaveDocument document) =>
             (await _mediator.Send(document))
                  .Match(Ok, Error);
 
@@ -40,7 +50,7 @@ namespace ocr.Web.Controllers
         {
             byte[] fileBytes = null;
 
-            if (file.Length > 0)
+            if (file?.Length > 0)
             {
                 using (var ms = new MemoryStream())
                 {
@@ -59,8 +69,8 @@ namespace ocr.Web.Controllers
                     }
                 };
 
-                (await _mediator.Send(document))
-                    .Match(Ok, Error);
+                return (await _mediator.Send(document))
+                           .Match(Ok, Error);
             }
 
             return Error(id);

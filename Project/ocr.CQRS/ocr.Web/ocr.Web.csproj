@@ -4,12 +4,7 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
-  <ItemGroup>
-    <None Remove="ClientApp\src\app\app.component.ts" />
-    <None Remove="ClientApp\src\app\app.module.ts" />
-    <None Remove="ClientApp\src\app\main.ts" />
-    <None Remove="ClientApp\src\app\polyfills.ts" />
-  </ItemGroup>
+
 
   <ItemGroup>
     <PackageReference Include="Marten" Version="3.13.4" />
@@ -29,11 +24,6 @@
     <ProjectReference Include="..\ocr.Data\ocr.Data.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <TypeScriptCompile Include="ClientApp\src\app\app.component.ts" />
-    <TypeScriptCompile Include="ClientApp\src\app\app.module.ts" />
-    <TypeScriptCompile Include="ClientApp\src\main.ts" />
-    <TypeScriptCompile Include="ClientApp\src\polyfills.ts" />
-  </ItemGroup>
+
 
 </Project>

@@ -40,13 +40,8 @@ namespace ocr.Web
             services.AddMediatR();
             services.AddSignalR();
 
-            //services.AddMvc().AddNewtonsoftJson();
-            services.AddControllers();
-
-            services.AddSpaStaticFiles(configuration =>
-            {
-                configuration.RootPath = "ClientApp/dist";
-            });
+            services.AddMvc().AddNewtonsoftJson();
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -71,20 +66,12 @@ namespace ocr.Web
 
             app.UseEndpoints(end =>
             {
-                end.MapHub<EventsHub>("/eventHub");
-
+                end.MapHub<EventsHub>("/eventsHub");
+                end.MapControllerRoute(name: "default",
+                    pattern: "{controller=Home}/{action=Index}/{id?}");
                 end.MapControllers();
             });
 
-            app.UseSpa(spa =>
-            {
-                spa.Options.SourcePath = "ClientApp";
-
-                if (env.IsDevelopment())
-                {
-                    spa.UseAngularCliServer(npmScript: "start");
-                }
-            });
 
 
         }

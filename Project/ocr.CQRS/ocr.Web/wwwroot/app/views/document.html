@@ -1,0 +1,17 @@
+﻿<section>
+    <h5>Hello, {{ model.tab.clientName }}</h5>
+
+    <input type="file" file-model="myFile" />
+    <button ng-click="model.postDocument()">upload image</button>
+
+    <form ng-submit="model.closeTab(model.finalText)" class="form-inline">
+        <textarea class="form-control" ng-model="model.finalText" type="text" />
+        <button type="submit" class="btn btn-danger">Close Tab</button>
+    </form>
+
+    <h5>Real-time event log</h5>
+
+    <ul class="list-group">
+        <li class="list-group-item" ng-repeat="event in model.events">{{ event | json }}</li>
+    </ul>
+</section>
